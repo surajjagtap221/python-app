@@ -2,16 +2,18 @@ pipeline {
     agent any
 
     environment {
-        SSH_CRED = 'node-app-key'
-        SERVER_IP = '172.31.8.212'
+        SSH_CRED = 'node-app-ssh-key'
+        SERVER_IP = '172.31.29.165'
         REMOTE_USER = 'ubuntu'
-        APP_DIR = '/home/ubuntu/pythonapp'
+        APP_DIR = '/home/ubuntu/python-app'
+        BRANCH = 'main'
+        REPO_URL = 'https://github.com/surajjagtap221/python-app.git'
     }
 
     stages {
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/iamtruptimane/pythonapp.git', branch: 'master'
+                git branch: "${BRANCH}", url: "${REPO_URL}"
             }
         }
 
@@ -34,8 +36,8 @@ pipeline {
                             sudo apt update &&
                             sudo apt install -y python3-venv python3-pip &&
                             cd ${APP_DIR} &&
-                            python3 -m venv venv &&
-                            source venv/bin/activate &&
+                            python3 -m venv myenv &&
+                            source myenv/bin/activate &&
                             pip install --upgrade pip &&
                             pip install -r requirements.txt &&
                             nohup python3 app.py --host=0.0.0.0 > app.log 2>&1 &
