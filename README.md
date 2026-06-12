@@ -13,7 +13,7 @@ python3 --version
 #git pull https://github.com/ravibagale/pythonapp.git
 #pip install -r requirements.txt
 #python3 app.py
-zdhvhk
+
 #Add port no 5000 in security group .
 
 #http://ec2-public-ip:5000
